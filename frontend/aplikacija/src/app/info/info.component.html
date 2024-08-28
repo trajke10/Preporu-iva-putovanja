@@ -1,0 +1,44 @@
+<div style="background-color: beige;">
+<button (click)="nazad()" class="btn btn-warning">Nazad</button>
+</div>
+<div id="content">
+<br>
+<hr>
+<table class="table" style="background-color: beige;">
+    <tr>
+        <th>Naziv: </th>
+        <td>{{atrakcija.naziv}}</td>
+    </tr>
+    <tr>
+        <th>Država: </th>
+        <td>{{atrakcija.drzava}}</td>
+    </tr>
+    <tr>
+        <th style="width: 200px;">Udaljenost od Vas: </th>
+        <td>{{haversineDistance(korisnik.lokacija.lat,korisnik.lokacija.lon,atrakcija.koordinate.latitude.valueOf(),atrakcija.koordinate.longitude.valueOf()) | number:'1.2-2'}} km</td>
+    </tr>
+    <tr>
+        <th>Opis: </th>
+        <td>{{atrakcija.opis}}</td>
+    </tr>
+    <tr>
+        <th>Prosečna ocena: </th>
+        <td>{{atrakcija.ocena.valueOf() | number:'1.2-2'}} </td>
+    </tr>
+    <tr>
+        <th>Broj ocena: </th>
+        <td>{{atrakcija.recenzije.valueOf()}} </td>
+    </tr>
+    <tr>
+        <th></th>
+        <td><img src="{{atrakcija.slika}}" height="300px" width="600px"></td>
+    </tr>
+
+</table>
+
+<h4>Ostavite ocenu od 1 do 10 ako ste posetili ovu lokaciju</h4>
+<div>
+    Ocena: <input type="number" min="1" max="10" [(ngModel)]="ocena"> &nbsp;
+    <button (click)="oceni()" class="btn btn-success">Potvrdi</button>
+</div>
+</div>

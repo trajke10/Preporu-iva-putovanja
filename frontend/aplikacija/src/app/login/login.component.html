@@ -1,0 +1,15 @@
+<div id="content">
+<h3>Ulogujte se u sistem</h3>
+<table >
+    <tr>
+        <td>Korisničko ime: </td>
+        <td><input type="text" [(ngModel)]="korisnickoIme"></td>
+    </tr>
+    <tr>
+        <td>Lozinka: </td>
+        <td><input type="password" [(ngModel)]="lozinka"></td>
+    </tr>   
+</table>
+<button (click)="login()" class="btn btn-success">Login</button>
+Nemate nalog? <a routerLink="/register">Registrujte se</a>
+</div>

@@ -1,0 +1,23 @@
+<div id="content">
+    <br>
+<table>
+    <tr>
+        <td>Korisničko ime: </td>
+        <td><input type="text" [(ngModel)]="korisnickoIme"></td>
+    </tr>
+    <tr>
+        <td>Lozinka:</td> 
+        <td><input type="password" [(ngModel)]="lozinka"></td>
+    </tr>
+    <tr>
+        <td>Godine:</td>
+        <td><input type="number" min="15" [(ngModel)]="godine"></td>
+    </tr>
+    <tr>
+        <td>Lokacija:</td>
+        <td><input #cityInput type="text"></td>
+    </tr>
+</table>    
+<button (click)="geocode(cityInput.value)" class="btn btn-success">Potvrdi</button>
+<button (click)="nazad()" class="btn btn-warning">Nazad</button>
+</div>  

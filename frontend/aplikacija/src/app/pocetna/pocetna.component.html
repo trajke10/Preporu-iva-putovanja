@@ -1,0 +1,171 @@
+<div id="content">
+
+<br>
+<app-logout></app-logout>
+Korisnik: {{korisnik.korisnickoIme}}, {{korisnik.godine}}
+<h3>Vaše posećene lokacije</h3>
+<table *ngIf="prethodnePoseteKorisnika.length>0;else nemaIstorije">
+    <tr id="red">
+        <th>Naziv</th>
+        <th>Država</th>
+        <th>Tip</th>
+        <th>Prosečna ocena posetioca</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let a of prethodnePoseteKorisnika">
+        <td>{{a.naziv}}</td>
+        <td>{{a.drzava}}</td>
+        <td>{{a.tip}}</td>
+        <td>{{a.ocena.valueOf() | number:'1.2-2'}}</td>
+        <td><div style="background-color: beige;"><a (click)="viseInfo(a)">Više informacija</a></div></td>
+    </tr>
+</table>
+<hr>
+<div *ngIf="bliskeAtrakcije.length>0;else nemaNista">
+<h3>U vašoj blizini</h3>
+<table border="1px" class="table table-bordered">
+    <tr id="red">
+        <th>Naziv</th>
+        <th>Država</th>
+        <th>Tip</th>
+        <th>Prosečna ocena posetioca</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let a of bliskeAtrakcije">
+        <td>{{a.naziv}}</td>
+        <td>{{a.drzava}}</td>
+        <td>{{a.tip}}</td>
+        <td>{{a.ocena.valueOf() | number:'1.2-2'}}</td>
+        <td><div style="background-color: beige;"><a (click)="viseInfo(a)">Više informacija</a></div></td>
+    </tr>
+</table>
+
+</div>
+
+<br>
+<div *ngIf="atrakcijeBliskihKorisnika.length>0;else nemaNista">
+<h3>Svidelo se ljudima u vašoj blizini</h3>
+<table border="1px" class="table table-bordered">
+    <tr id="red">
+        <th>Naziv</th>
+        <th>Država</th>
+        <th>Tip</th>
+        <th>Prosečna ocena posetioca</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let a of atrakcijeBliskihKorisnika">
+        <td>{{a.naziv}}</td>
+        <td>{{a.drzava}}</td>
+        <td>{{a.tip}}</td>
+        <td>{{a.ocena.valueOf() | number:'1.2-2'}}</td>
+        <td><div style="background-color: beige;"><a (click)="viseInfo(a)">Više informacija</a></div></td>
+    </tr>
+</table>
+</div>
+<br>
+<div *ngIf="atrakcijeKorisnikaSlicnihGodina.length>0;else nemaNista">
+<h3>Na osnovu vaših godina</h3>
+<table border="1px" class="table table-bordered">
+    <tr id="red">
+        <th>Naziv</th>
+        <th>Država</th>
+        <th>Tip</th>
+        <th>Prosečna ocena posetioca</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let a of atrakcijeKorisnikaSlicnihGodina">
+        <td>{{a.naziv}}</td>
+        <td>{{a.drzava}}</td>
+        <td>{{a.tip}}</td>
+        <td>{{a.ocena.valueOf() | number:'1.2-2'}}</td>
+        <td><div style="background-color: beige;"><a (click)="viseInfo(a)">Više informacija</a></div></td>
+    </tr>
+</table>
+</div>
+<br>
+<div *ngIf="preporuceneAtrakcije.length>0;else nemaNista">
+    <h3>Na osnovu vaših prethodnih putovanja</h3>
+    <table border="1px" class="table table-bordered">
+        <tr id="red">
+            <th>Naziv</th>
+            <th>Država</th>
+            <th>Tip</th>
+            <th>Prosečna ocena posetioca</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let a of preporuceneAtrakcije">
+            <td>{{a.naziv}}</td>
+            <td>{{a.drzava}}</td>
+            <td>{{a.tip}}</td>
+            <td>{{a.ocena.valueOf() | number:'1.2-2'}}</td>
+            <td><div style="background-color: beige;"><a (click)="viseInfo(a)">Više informacija</a></div></td>
+        </tr>
+    </table>
+</div>
+
+<br>
+<div *ngIf="najslicnijiKorisnici.length>0;else nemaNista">
+<h3>Pronađi prijatelje:</h3>
+<table border="1px" class="table table-bordered">
+    <tr id="red">
+        <th>Korisničko ime  </th>
+        <th>  Godine</th>
+        <th>  Udaljenost</th>
+    </tr>
+    <tr *ngFor="let k of najslicnijiKorisnici">
+        <td>{{k.korisnickoIme}}</td>
+        <td>{{k.godine}}</td>
+        <td>{{haversineDistance(k.lokacija.lat, k.lokacija.lon, korisnik.lokacija.lat, korisnik.lokacija.lon) | number:'1.2-2' }} km</td>
+    </tr>
+</table>
+</div>
+<br>
+
+<br>
+<h3>Sve iz ponude</h3>
+<div>
+Pretražite po
+Nazivu: <input type="text" [(ngModel)]="naziv">
+Državi: <input type="text" [(ngModel)]="drzava">
+Tipu: <input type="text" [(ngModel)]="tip">
+Minimalnoj oceni: <input type="number" [(ngModel)]="ocena"> &nbsp; 
+<button (click)="filtriraj()" class="btn btn-success">Pretražite</button> <br> <br>
+</div>
+<div>
+Sortirajte po oceni: 
+Opadajuće: <input type="radio" name="order" value="desc" [(ngModel)]="poredak">
+Rastuće: <input type="radio" name="order" value="asc" [(ngModel)]="poredak"> &nbsp; 
+<button (click)="sortiraj()" class="btn btn-success">Sortirajte</button> <br>
+</div>
+<br>
+<table border="1px" class="table table-bordered" *ngIf="filtriraneAtrakcije.length>0;else nemaAt">
+    <tr id="red">
+        <th>Naziv</th>
+        <th>Država</th>
+        <th>Tip</th>
+        <th>Prosečna ocena posetioca</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let a of filtriraneAtrakcije">
+        <td>{{a.naziv}}</td>
+        <td>{{a.drzava}}</td>
+        <td>{{a.tip}}</td>
+        <td>{{a.ocena.valueOf() | number:'1.2-2'}}</td>
+        <td><div style="background-color: beige;"><a (click)="viseInfo(a)">Više informacija</a></div></td>
+    </tr>
+</table>
+
+<ng-template #nemaAt>
+    <br>
+    Ne postoji ništa u ponudi što odgovara postavljenim kriterijumima
+</ng-template>
+
+<ng-template #nemaNista>
+
+</ng-template>
+
+<ng-template #nemaIstorije>
+    Ne postoje informacije
+</ng-template>
+
+</div>

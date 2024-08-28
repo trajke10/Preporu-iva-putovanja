@@ -1,0 +1,30 @@
+a{
+    text-decoration: underline !important;
+    color: blue !important;
+    cursor:pointer !important;
+    background-color: beige !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+#red{
+    background-color: green;
+}
+
+th,td{
+    text-align: center;
+    padding: 10px; /* Razmak unutar celije */
+}
+
+#content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+    text-align: center;
+}
+
+table{
+    background-color: beige !important;
+}
